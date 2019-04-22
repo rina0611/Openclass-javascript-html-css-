@@ -108,6 +108,42 @@ https://rina0611.github.io/Openclass-javascript-html-css-/
         alert,return...
     }
 
+함수와 변수 사용
+
+    <script>
+            function headerTag(title,subtitle){
+                return `<header>
+                    <h1><a href="index.html">${title}</a></h1>
+                    ${subtitle} -from egoing
+                </header>`;
+            }
+            
+            var navTag=`
+                <nav>
+                    <ol>
+                        <li><a href="1.html">HTML</a></li>
+                        <li><a href="2.html">CSS</a></li>
+                        <li><a href="3.html">JavaScript</a></li>
+                    </ol>
+                </nav>`;
+            function articleTag(title, subtitle){
+                return `
+                    <article>
+                        <h2>${title}</h2>
+                        ${subtitle}
+                    </article>`;
+            }
+            
+            document.write(
+
+                headerTag('HTML','World Wide Web')+
+                headerTag(' Web','Open Class')+
+                navTag+
+                articleTag('Welcom','Hello Web')
+            )
+            
+
+    </script>
 
 
 
