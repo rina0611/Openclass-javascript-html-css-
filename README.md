@@ -16,8 +16,13 @@ Udate
 Delete
 
 ## html 복습
-[index][배운거 복습]
-[배운거 복습]:index.html
+https://rina0611.github.io/Openclass-javascript-html-css-/
+
+## Javaceipt 기초
+현재 웹 브라우저에서 오른쪽 클릭 - 검사 - console
+
+alert('') - 경고창을 띄움
+prompt('') - 사용자의 입력값을 받음
 
 # 04/23 Tue
 
