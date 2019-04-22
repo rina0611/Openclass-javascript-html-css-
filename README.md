@@ -23,6 +23,8 @@ https://rina0611.github.io/Openclass-javascript-html-css-/
 
 alert('') - 경고창을 띄움
 prompt('') - 사용자의 입력값을 받음
+"erere".length - data 글자수 출력
+
 
 # 04/23 Tue
 
