@@ -18,6 +18,13 @@ wdb1 - javascript - 객체지향 - react
 ## html 복습
 https://rina0611.github.io/Openclass-javascript-html-css-/
 
+    <header></header>
+    <nav></nav>
+    <article></article>
+    <script></script>
+
+
+
 ## Javacript 기초
 현재 웹 브라우저에서 오른쪽 클릭 - 검사 - console
 
@@ -31,6 +38,48 @@ prompt('') - 사용자의 입력값을 받음
     variable - var
         var a
         var b
+
+### 변수 사용하기
+
+    <html>
+    <head></head>
+    <body>
+        
+
+        <script>
+            var headerTag=`
+                <header>
+                    <h1><a href="index.html">WEB</a></h1>
+                    Open class web! -from egoing
+                </header>`;
+                
+            var navTag=`
+                <nav>
+                    <ol>
+                        <li><a href="1.html">HTML</a></li>
+                        <li><a href="2.html">CSS</a></li>
+                        <li><a href="3.html">JavaScript</a></li>
+                    </ol>
+                </nav>`;
+            var articleTag =`
+                <article>
+                    <h2>Welcome</h2>
+                    Hello, Web
+                </article>`;
+
+            document.write(
+                headerTag+
+                navTag+
+                articleTag
+            )
+
+        </script>
+        
+
+    </body>
+    </html>
+
+
 
 
 
