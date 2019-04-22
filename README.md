@@ -25,6 +25,14 @@ alert('') - 경고창을 띄움
 prompt('') - 사용자의 입력값을 받음
 "erere".length - data 글자수 출력
 
+###Data Type
+1. string - "1"
+2. number -  1
+3. variable - 변수 정의는 var
+    var a
+    var b
+
+
 
 # 04/23 Tue
 
