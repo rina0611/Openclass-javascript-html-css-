@@ -18,17 +18,17 @@ wdb1 - javascript - 객체지향 - react
 ## html 복습
 https://rina0611.github.io/Openclass-javascript-html-css-/
 
-## Javaceipt 기초
+## Javacript 기초
 현재 웹 브라우저에서 오른쪽 클릭 - 검사 - console
 
 alert('') - 경고창을 띄움
 prompt('') - 사용자의 입력값을 받음
 "erere".length - data 글자수 출력
 
-###Data Type
+### Data Type
     string - "1"
     number -  1
-    variable - 변수 정의는 var
+    variable - var
         var a
         var b
 
