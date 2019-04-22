@@ -80,7 +80,12 @@ prompt('') - 사용자의 입력값을 받음
     </html>
 
 
-
+###react에서 변수란?
+    사용자 정의 tag를 만들 수 있다.
+    ex)
+    <headerTag></headerTag>
+    <navTag></navTag>
+    <article></aritcle> 
 
 
 # 04/23 Tue
