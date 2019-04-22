@@ -28,9 +28,14 @@ https://rina0611.github.io/Openclass-javascript-html-css-/
 ## Javacript 기초
 현재 웹 브라우저에서 오른쪽 클릭 - 검사 - console
 
-alert('') - 경고창을 띄움
-prompt('') - 사용자의 입력값을 받음
-"erere".length - data 글자수 출력
+    alert('') - 경고창을 띄움
+    prompt('') - 사용자의 입력값을 받음
+    "erere".length - data 글자수 출력
+    Math.random()
+    Math.max()
+
+등등, 다양한 함수들을 적용 가능하다. 
+
 
 ### Data Type
     string - "1"
@@ -42,50 +47,68 @@ prompt('') - 사용자의 입력값을 받음
 ### 변수 사용하기
 
     <html>
-    <head></head>
-    <body>
+        <head></head>
+        <body>
         
 
-        <script>
-            var headerTag=`
-                <header>
-                    <h1><a href="index.html">WEB</a></h1>
-                    Open class web! -from egoing
-                </header>`;
-                
-            var navTag=`
-                <nav>
-                    <ol>
-                        <li><a href="1.html">HTML</a></li>
-                        <li><a href="2.html">CSS</a></li>
-                        <li><a href="3.html">JavaScript</a></li>
-                    </ol>
-                </nav>`;
-            var articleTag =`
-                <article>
-                    <h2>Welcome</h2>
-                    Hello, Web
-                </article>`;
+            <script>
+                var title = "WEB";
+                var headerTag=`
+                    <header>
+                        <h1><a href="index.html">${title}</a></h1>
+                        Open class web! -from egoing
+                    </header>`;
+                    
+                var navTag=`
+                    <nav>
+                        <ol>
+                            <li><a href="1.html">HTML</a></li>
+                            <li><a href="2.html">CSS</a></li>
+                            <li><a href="3.html">JavaScript</a></li>
+                        </ol>
+                    </nav>`;
+                var articleTag =`
+                    <article>
+                        <h2>Welcome</h2>
+                        Hello, Web
+                    </article>`;
 
-            document.write(
-                headerTag+
-                navTag+
-                articleTag
-            )
+                document.write(
+                    headerTag+
+                    navTag+
+                    articleTag
+                )
 
-        </script>
-        
+            </script>        
 
     </body>
     </html>
 
 
-### react에서 변수란?
+
+#### react에서 변수란?
     사용자 정의 tag를 만들 수 있다.
     ex)
     <headerTag></headerTag>
     <navTag></navTag>
     <article></aritcle> 
+
+### 함수 사용
+변수의 중복으로 인한 문제를 해결하기 위함
+
+    <script>
+            function sum(v1,v2){
+                return v1+v2;
+            }
+            sum(1,2);
+    </script>
+
+    함수 정의
+    function 함수이름(변수){
+        alert,return...
+    }
+
+
 
 
 # 04/23 Tue
