@@ -10,10 +10,10 @@
 wdb1 - javascript - 객체지향 - react
 
 ## CRUD
-Create
-Read
-Udate
-Delete
+    1. Create
+    2. Read
+    3. Update
+    4. Delete
 
 ## html 복습
 https://rina0611.github.io/Openclass-javascript-html-css-/
