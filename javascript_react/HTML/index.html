@@ -1,42 +1,96 @@
+    
 <html>
-    <head></head>
-    <body>
+        <head></head>
+        <body>
+            <div id="app"></div>
+            <script>
+                function headerTag(title, sub){
+                    return `
+                    <header>
+                        <h1>
+                            <a 
+                                href="index.html"
+                                onclick="
+                                    mode = 'welcome';
+                                    render();
+                                    event.preventDefault();
+                                "
+                            >${title}</a>
+                        </h1>
+                        ${sub}
+                    </header>`;
+                }
+                function navTag(data){
+                    var liTag='';
+                    var i=0;
+                    while(i<data.length){
+                        liTag = liTag+`<li>
+                                            <a href="${data[i].id}.html"
+                                                onclick="
+                                                    mode = 'read';
+                                                    render();
+                                                    event.preventDefault();
+                                                "
+                                            >${data[i].title}</a>
+                                        </li>`
+                        i=i+1
+                            
+                    }
+                    return `
+                            <nav>
+                                <ol>
+                                   ${liTag} 
+                                </ol>
+                            </nav>
+                            `;
+                }
+                
+                function articleTag(title, desc){
+                    return `
+                        <article>
+                            <h2>${title}</h2>
+                            ${desc}
+                        </article>
+                    `;
+                }
+                var mode = 'welcome';
+                var contents = [
+                    {id:1, title:'html', decs:'HTML is ...'},
+                    {id:2, title:'css', decs:'CSS is ...'},
+                    {id:3, title:'javascript', decs:'Javascript is ...'},
+                ];
+                var selected_id=3;
 
-        <script>
-            function headerTag(title,subtitle){
-                return `<header>
-                    <h1><a href="index.html">${title}</a></h1>
-                    ${subtitle} -from egoing
-                </header>`;
-            }
+                function render(){
+                    var _articleTitle = '';
+                    var _articleDesc = '';
+                    if(mode === 'welcome'){
+                        _articleTitle = 'Welcome';
+                        _articleDesc = 'Hello, WEB';
+                    } else if(mode === 'read') {
+                        var i=0;
+                        while(i<contents.length){
+                            if(selected_id==contents[i].id){
+                                _articleTitle = contents[i].title;
+                                _articleDesc = contents[i].decs; 
+                                break;
+                            }
+                            i=i+1
+                        }
+                          
+                    } 
+                    document.querySelector('#app').innerHTML = (
+                        headerTag('WEB', 'World Wide Web!!!')+
+                        navTag(contents)+
+                        articleTag(_articleTitle, _articleDesc)
+                    );
+                }
+                render();
+            </script>
             
-            var navTag=`
-                <nav>
-                    <ol>
-                        <li><a href="1.html">HTML</a></li>
-                        <li><a href="2.html">CSS</a></li>
-                        <li><a href="3.html">JavaScript</a></li>
-                    </ol>
-                </nav>`;
-            function articleTag(title, subtitle){
-                return `
-                    <article>
-                        <h2>${title}</h2>
-                        ${subtitle}
-                    </article>`;
-            }
             
-            document.write(
-
-                headerTag('HTML','World Wide Web')+
-                headerTag(' Web','Open Class')+
-                navTag+
-                articleTag('Welcom','Hello Web')
-            )
+    
             
-
-        </script>
-        
-
-    </body>
-</html>
+    
+        </body>
+    </html>
