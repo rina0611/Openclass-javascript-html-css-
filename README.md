@@ -674,6 +674,8 @@ render 함수
 
 즉 연관된 함수, 변수들을 같이 묶어서 객체로 정리해주는 것이다.
 
+전역변수는 최소한으로 만들어주는 프로그래밍
+
 ### Javascript에서 객체
 
 javascript는 객체 안에 함수도 들어갈 수 있다.
@@ -681,19 +683,172 @@ javascript는 객체 안에 함수도 들어갈 수 있다.
     var role={ 1:정수, 2:변수, 3: 함수()}
 
 객체는 마치 독립적인 존재이다. 그렇기 때문에, 객체 안에, 또 다시 자기자신을 부르는 것은 지양한다.
-그러나, this를 쓴다면 가능.
-이건 또 java같다.
+그러나, 'this'를 쓴다면 가능.
+이건 java배울 때 생각난다.
 
     var role={1:정수, 2:변수, 3.함수(){return this.1}}
 
-this는 특히 함수나, class 안에서, 그 안에 있는 것을 호출 할 때 쓴다. 나는 이것을 또다시 호출되는 변수 중복을 막기 위해 쓴다고 이해했다.
+this는 특히 함수나, class 안에서, 그 안에 있는 변수나 함수를 호출 할 때 쓴다.
+나는 'this.'를 변수 중복을 막기 위해 쓴다고 이해했었다.
+
+## Node.JS - React 시작하기
+
+javascript가 nodejs를 이용하여 컴퓨터를 제어.
+
+    ctrl+j -> terminal 
+
+npm으로 package를 다운로드
+앱 create-react-app를 다운로드.
+
+    >npm install -g create-react-app
+
+-g는 내 컴퓨터에 깔린다는 뜻이다.
+
+react 개발환경 세팅
+    
+    >create-react-app react-app
+
+'react-app'이라는 폴더가 생기고, react개발환경이 생겼다.
+
+그러react-app으로 들어가 terminal에서 react-app directory로 변경한 다음
+
+    >cd react-app
+    >npm run start
+
+그렇다면 웹서버가 새롭게 시작된다.
+create react app을 통해서, 샘플 어플리케이션 웹서버가 실행되는 것이다. 
+내 주소를 할당해주는데, 내가 어디로 접속하면 되는지를 알 수 있다.
+
+## React 사용하기
+jsx를 사용하여 코드를 짤 예정인데 jsx라는 것은 유사 javascript다.
+그래서 grave accent를 쓰지 않거나 여러 다른 부분에서 조금 다른부분이 있다. 
+
+react-app 안에 public이라는 폴더로 가서, 코드를 수정하며 샘플 어플리케이션 웹서버에 적용할 수 있다.
+
+src 폴더에 index.js 
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+    //ReactDOM.render(<App />, document.querySelector('#root')); 위와 같은 역할이다.
+
+src 폴더에 App.js
+
+    function App() {
+        return (
+            <div className="App">
+            Hello react
+            </div>
+        );
+    }
+
+## tip
+
+crtl+마우스를 올려놓기 -> 그 파일로 이동할 수 있다.
+
+## 온라인 online 에서 React 사용하기
+
+codesandbox 검색 후, 제일 처음 나오는 곳에서 사용할 수 있다고 한다.
 
 
-## React
+## React 컴포넌트 만들기, 사용자 정의 Tag 생성
+
+App.js 의 내용을 바꾸어 준다.
+
+    import React,{Component} from 'react';
+    import logo from './logo.svg';
+    import './App.css';
+
+컴포넌트를 만들때는 CLASS를 쓴다.
+
+    class Subject extends Component{
+        render(){
+            return(
+            <header>
+                <h1>World wide Web</h1>
+            </header>
+            )
+
+        }
+    }
+
+App도 클래스로 만들어서, 내가 만든 Subject클래스 적용한다.
+이를 사용자 정의 tag를 만들었고, 적용했다고 한다.
+
+    class App extends Component{
+    render(){
+            return (
+            <div className="App">
+                <Subject></Subject>
+            </div>
+            );
+        }
+    }
+
+## 컴포넌트에 props 부여하기 - (react를 사용하는 이유)
+
+<a></a> 를 살펴보면
+
+    <a href="1grj.html">
+이런식으로 href라는 함수의 매개변수 처럼 보이는 것이 있다. 
+이것을 props라고 한다. 
+
+우리가 만들 사용자 정의 tag에서 props를 만들어 보자
+
+해당 컴포넌트 class 안에
+
+    {this.props.이름}
+을 넣어주면 된다.
+
+    ex)
+    class Contents extends Component{
+        render(){
+            return (
+            <article>
+            <h2>{this.props.title}</h2>
+                {this.props.subtitle}
+            </article>
+            )
+        }
+    }
 
 
+그리고 사용할 때는
+
+    <Contents title="React" subtitle="React is..."><Contents>
+이렇게 사용자 정의 tag를 사용해준다.
 
 
+## React 객체
+React에서 객체는 어떤 역할을 할까.
+객체는 서로 다른 컴포넌트를 이어 주는 역할을 한다. 
+
+중개자 역할.
+-전역변수 같은 느낌?
+
+그래서 전역변수처럼 정의한다.
+여기서 state가 그 역할을 한다.
+crome react에서 state 값을 바꿔보면, 무슨 느낌인지 올 수 있다.
+
+    class App extends Component{
+
+        state={
+            contents:[{id:1, title:'HTML', desc:'HTML is...'},
+                    {id:2, title:'CSS', desc:'CSS is...'}] 
+            }
+        
+        render(){
+            
+            return (
+            <div className="App">
+                <Subject title="World wide Web" subtitle="Welcome"></Subject>
+                <TOC data={this.state.contents}></TOC>
+                <TOC data={this.state.contents}></TOC>
+                <TOC data={this.state.contents}></TOC>
+                <TOC data={this.state.contents}></TOC>
+                <Contents title="React" subtitle="React is..."></Contents>
+            </div>
+            );
+        }
+    }
 
 
 
