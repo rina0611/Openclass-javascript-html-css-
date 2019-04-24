@@ -28,6 +28,7 @@
                                             <a href="${data[i].id}.html"
                                                 onclick="
                                                     mode = 'read';
+                                                    selected_id=${data[i].id};
                                                     render();
                                                     event.preventDefault();
                                                 "
@@ -59,7 +60,7 @@
                     {id:2, title:'css', decs:'CSS is ...'},
                     {id:3, title:'javascript', decs:'Javascript is ...'},
                 ];
-                var selected_id=3;
+                var selected_id=1;
 
                 function render(){
                     var _articleTitle = '';

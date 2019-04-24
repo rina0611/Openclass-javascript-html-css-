@@ -194,7 +194,7 @@ html 에서 항상 기본 틀은 html, head, body로 이루어져 있다.
 어제랑 오늘 해서 배우는 거지만, python과 java를 많이 닮은거 같다.
 이 말을 누군가게 들었던 거 같은데, 누군지 잘 기억이 안 난다.
 ### Event Programming
-예전에 java 프로그래밍 할 떄 봤던 event programmingd이다.
+예전에 java 프로그래밍 할 떄 봤던 event programming 이다.
 그 때랑 개념을 비슷한 거 같다. 
     
 
@@ -206,28 +206,29 @@ html 에서 항상 기본 틀은 html, head, body로 이루어져 있다.
 
 input 안에 들어가는 매개변수는 다양하고, 많다.
 그리고 속성값 안에는 반드시 javascript(event)가 들어간다.
+
     ex) 
     <body>
-        <script>
-            var a=1;
-            var b=2;
-            console.log('hi'); 
-            function handler(e){
-                console.log(e.target);
-            }
+    <script>
+        var a=1;
+        var b=2;
+        console.log('hi'); 
+        function handler(e){
+            console.log(e.target);
+        }
+        //debugger;
+    </script>
+    <input 
+        type="button" 
+        value="hi" 
+        onclick="
             //debugger;
-        </script>
-        <input 
-            type="button" 
-            value="hi" 
-            onclick="
-                //debugger;
-                handler(event);"
-        >
-        <input 
-            type="text"
-            onchange="alert('changed');"
-        >
+            handler(event);"
+    >
+    <input 
+        type="text"
+        onchange="alert('changed');"
+    >
 
 ### javascript 디버깅
 디버그는 프로그래밍에 있어 없어서는 안될 존재 같다.
@@ -255,6 +256,7 @@ input 안에 들어가는 매개변수는 다양하고, 많다.
     </script>
 
 prompt와 조건문을 사용해서 간단한 비밀번호를 물어보는 코드
+
     <html>
     <body>
         <script>
@@ -272,6 +274,7 @@ prompt와 조건문을 사용해서 간단한 비밀번호를 물어보는 코�
         </script>
     </body>
     </html>
+
 ### javascript 반복문
 
 while문 사용
@@ -291,6 +294,7 @@ javascript에서 배열과 객체가 느낌이 거의 비슷하다고 한다.
     var junsu_birth = [1,2,1,5];
 
 변수 type에 상관없이 배열에 집어 넣을 수 있다.
+
     var junsu = ['xia','fairy','tanpopo','leo','genius',1,2,1,5];
 
 #### 배열의 원소 부르기
@@ -298,6 +302,7 @@ javascript에서 배열과 객체가 느낌이 거의 비슷하다고 한다.
     junsu[1]
 
 >> fairy
+
 javascript도 배열 시작은 index은 0 부터이다.
 
 #### 반복문으로 배열의 원소 꺼내기
@@ -312,9 +317,13 @@ javascript도 배열 시작은 index은 0 부터이다.
     document.write('</ol>');
 
 >>1.xia
+
 >>2.fairy
+
 >>3.tanpopo
+
 >>4.leo
+
 >>5.genius
 
 ### Javascript 객체
@@ -344,7 +353,8 @@ javascript도 배열 시작은 index은 0 부터이다.
 
 
 #### Convert document.write to innerHTML
-document.write
+
+document.write를 사용했을 때,
 
     document.write(
 
@@ -354,7 +364,7 @@ document.write
             )
     
 
-target 추가 하고
+id 값이라는 것을 추가하여 target을 추가 하고
 
     <div id="app"></div>
 
@@ -368,6 +378,7 @@ id 값이 app인 태그 내부에 다음 html 코드를 삽입한다.
 
 #### render함수를 정의하고, mode에 따라서 application 상태 바꾸기
 render 함수
+
     var mode='welcome';
 
     var _articleTitle='';
@@ -461,7 +472,7 @@ render 함수
     </html>
 
 
-#### 배열,객체를 사용하여 함수 navTag()를 재정의 
+#### 배열,객체를 사용하여 함수 navTag()를 재정의 후 SPA 구현
     <html>
     <head></head>
     <body>
@@ -542,7 +553,104 @@ render 함수
 </html>
 
 
+#### id값을 이용하여 최종SPA 구현
+        
+    <html>
+        <head></head>
+        <body>
+            <div id="app"></div>
+            <script>
+                function headerTag(title, sub){
+                    return `
+                    <header>
+                        <h1>
+                            <a 
+                                href="index.html"
+                                onclick="
+                                    mode = 'welcome';
+                                    render();
+                                    event.preventDefault();
+                                "
+                            >${title}</a>
+                        </h1>
+                        ${sub}
+                    </header>`;
+                }
+                function navTag(data){
+                    var liTag='';
+                    var i=0;
+                    while(i<data.length){
+                        liTag = liTag+`<li>
+                                            <a href="${data[i].id}.html"
+                                                onclick="
+                                                    mode = 'read';
+                                                    selected_id=${data[i].id};
+                                                    render();
+                                                    event.preventDefault();
+                                                "
+                                            >${data[i].title}</a>
+                                        </li>`
+                        i=i+1
+                            
+                    }
+                    return `
+                            <nav>
+                                <ol>
+                                   ${liTag} 
+                                </ol>
+                            </nav>
+                            `;
+                }
+                
+                function articleTag(title, desc){
+                    return `
+                        <article>
+                            <h2>${title}</h2>
+                            ${desc}
+                        </article>
+                    `;
+                }
+                var mode = 'welcome';
+                var contents = [
+                    {id:1, title:'html', decs:'HTML is ...'},
+                    {id:2, title:'css', decs:'CSS is ...'},
+                    {id:3, title:'javascript', decs:'Javascript is ...'},
+                ];
+                var selected_id=1;
 
+                function render(){
+                    var _articleTitle = '';
+                    var _articleDesc = '';
+                    if(mode === 'welcome'){
+                        _articleTitle = 'Welcome';
+                        _articleDesc = 'Hello, WEB';
+                    } else if(mode === 'read') {
+                        var i=0;
+                        while(i<contents.length){
+                            if(selected_id==contents[i].id){
+                                _articleTitle = contents[i].title;
+                                _articleDesc = contents[i].decs; 
+                                break;
+                            }
+                            i=i+1
+                        }
+                          
+                    } 
+                    document.querySelector('#app').innerHTML = (
+                        headerTag('WEB', 'World Wide Web!!!')+
+                        navTag(contents)+
+                        articleTag(_articleTitle, _articleDesc)
+                    );
+                }
+                render();
+            </script>
+            
+            
+    
+            
+    
+        </body>
+    </html>
 
 
 
