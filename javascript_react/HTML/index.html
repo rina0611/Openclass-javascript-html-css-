@@ -64,35 +64,38 @@
                             selected_id:1
                             },
                         
-                    render:function _render(){
-                        var _articleTitle = '';
-                        var _articleDesc = '';
-                        if(this.state.mode === 'welcome'){
-                            _articleTitle = 'Welcome';
-                            _articleDesc = 'Hello, WEB';
-                        } else if(this.state.mode === 'read') {
-                            var i=0;
-                            while(i<this.state.contents.length){
-                                if(this.state.mode==this.state.contents[i].id){
-                                    _articleTitle = this.state.contents[i].title;
-                                    _articleDesc = this.state.contents[i].decs; 
-                                    break;
-                                }
-                                i=i+1
+                            render:function _render(){
+                                var _articleTitle = '';
+                                var _articleDesc = '';
+                                if(this.state.mode === 'welcome'){
+                                    _articleTitle = 'Welcome';
+                                    _articleDesc = 'Hello, WEB';
+                                } else if(this.state.mode === 'read') {
+                                    var i=0;
+                                    while(i<this.state.contents.length){
+                                        if(this.state.mode===this.state.contents[i].id){
+                                            _articleTitle = this.state.contents[i].title;
+                                            _articleDesc = this.state.contents[i].decs; 
+                                            break;
+                                        }
+                                        i=i+1
+                                    }
+                                    
+                                } 
+                                document.querySelector('#app').innerHTML = (
+                                    
+                                    headerTag('WEB', 'World Wide Web!!!')+
+                                    navTag(this.state.contents)+
+                                    articleTag(_articleTitle, _articleDesc)
+                                    
+                                );
                             }
                             
-                        } 
-                        document.querySelector('#app').innerHTML = (
-                            headerTag('WEB', 'World Wide Web!!!')+
-                            navTag(this.state.contents)+
-                            articleTag(_articleTitle, _articleDesc)
-                        );
-                    }
-                    
 
                 }
-                
+                debugger;
                 app.render();
+                
 
             </script>
         </body>
