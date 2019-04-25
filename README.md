@@ -854,5 +854,216 @@ crome react에서 state 값을 바꿔보면, 무슨 느낌인지 올 수 있다.
 
 # 04/25 Thu
 
+    npx create-react-app react-app2
+    cd react-app2
+    npm start
+
+npx는 프로그림을 일회성으로 깔고, 실행시키고, 다시 삭제시킨다는 뜻이다.
+
+기존에 react 앱이 3000 서버에 실행시켰던 것에 충돌이 일어나기 때문에, 다른 서버를 할당시켜준다.
+
+react-app2/App.js를 수정하여서, reload하기. 
+
+## React로 만든 웹을 배포하기
+    
+    ctrl+c// 서버 종료
+    
+### Build 후 배포하기
+
+    npm run build 
+    npm install -g serve 
+    serve -s build
+
+### 서버 닫고, 다시 시작
+
+    ctrl+c
+    npm start
+
+### 시작
+
+    import React,{Component} from 'react';
+
+        class App extends Component{
+        render(){
+            return (
+            <div className="App">
+                Hello React
+            </div>
+            );
+        }
+        
+        }
+
+        export default App;
+
+
+### State
+
+props는 component 외부에서 사용하여, component를 사용하는 것에 노출되어 있음. 
+state는 component 내부에서 사용하는 data, 외부에서 변경할 수 없음 
+props를 이용하여, state를 변경하려고 하면 error가 난다.
+
+### Component
+
+Component 안에 Component가 있을 수 있고, 그 관계를 부모 Component 자식 Component라고 한다.
+부모가 자식 Component를 조작하려면, 자식 Component의 props를 사용하여 조작한다.
+
+
+### 주석
+
+    ctrl+'/'
+
+### event programming
+
+    onClick={함수} // 약속임. 함수가 들어간다.
+
+함수 뒤에 .bind(this) -> 함수 안에 this를 쓸 수 있다는 뜻이다.
+
+this state값을 읽는/변경하는 방법
+
+    this.state.mode='welcome' //값을 읽을 때,
+    this.setState({mode:'welcome'})//값을 변경할 떄
+
+
+## Javascript OOP(Object Oriented Programming)
+
+java와 다른 점!! 
+가장 큰 다른 점 java에서 class가 하는 역할, 객체를 찍어내는 붕어빵 틀을, javascript에서는 function이 할 수 있다.
+Javascript에서의 객체를 찍어내는 함수는 '생성자 함수'라고 부른다.
+
+    function Person(_name,_first,_second){
+                this.name=_name;
+                this.first=_first;
+                this.second=_second;
+                this.sum = function(){
+                    return this.first+this.second;
+                }
+            }
+    var p1 = new Person("heagu",12,13);
+    var p2 = new Person("jinmo",45,65);
+
+### Javascript는 이 방법을 고수하면서도, 주류 객체지향언어에서 표현하는 Class가 객체를 만들어내는 방법도 수용한다.
+
+Javascript의 생성자 함수를 주류 Class로 변환해서 사용해보자
+
+    class Person{
+        constructor(_name,_first,_second){
+            this.name=_name;
+            this.first=_first;
+            this.second=_second;
+            this.sum = function(){
+                return this.first+this.second;}
+        }
+    }
+    var p1 = new Person("heagu",12,13);
+    var p2 = new Person("jinmo",45,65);
+    console.log(p1.sum(),p2.sum())
+
+class로 객체를 찍어낼 때, class안에 constructor함수가 있는지 확인한다.
+있다면, 그안의 내용으로 객체를 이룬다.
+
+### Javascript는 복잡하지만, 유연하다.
+
+왜 생성자 함수를 사용해서 필요할까?? 
+객체마다 꼭 필요하지 않은 메서드가 있을 수 있다. sum()같은 
+
+그렇다면, 생성자 함수에 포함하지 않고 싶고, 따로 빼낼 수 있다.
+바로 prototype()으로 
+Person()함수는 그 자체가 객체가 될 수 있고, 또 다른 객체를 만들 수도 있다.
+헷갈리지 않기 위해 Person()의 property에 prototype()이 있는데, Person이 만든 객체를 가르킨다.
+Person()에 만들어진 새로운 객체 또한, __proto__를 가지고, 자신을 만든 생성자 함수의 프로토타입함수를 가르킨다.
+만약, 생성된 객체에 가지고 있느 않은 property를 호출한다면, __proto__로 찾아가서 찾도록 되어있따.
+
+생성자함수의 prototype 정의
+
+    function Person(_name,_first,_second){
+                this.name=_name;
+                this.first=_first;
+                this.second=_second;
+            }
+    Person.prototype.sum = function(){
+            return this.first+this.second;
+    }
+
+Class에서 prototype
+
+    class Person{
+        constructor(_name,_first,_second){
+            this.name=_name;
+            this.first=_first;
+            this.second=_second;
+            
+        }
+        sum(){
+            return this.first+this.second;
+        }
+    }
+
+비서같다.
+
+Javascript는 서로 속함이 자유롭다. "this"
+
+    kim = {name:'Kim'};
+    lee = {name:'Lee'};
+    function hi(){
+        console.log('hi '+this.name);
+    }
+    hi.call(kim);
+    hi.call(lee);
+
+hi함수를 호출하는데, hi 함수의 this의 객체를 hi() 인자로 넣어준다.
+hi Kim
+hi Lee
+
+    hi.bind(kim);
+bind는 hi를 복사해준다. 
+복사할 때 hi가 가르키는 this가 kim인 hi함수를 복사하는것이다.
+
+    var KimsHi = hi.bind(kim);
+    KimsHi();
+hi Kim
+
+
+### constructor
+
+    p1.constructor
+
+p1을 생성한 객체를 알려준다.
+
+### 객체를 이용해서 구현한 코드.
+
+    class Subject extends Component{
+        render(){
+            return (
+            <header>
+                <h1><a href="" 
+                        onClick={
+                            function(_event){
+                            _event.preventDefault();
+                            {this.props.onChangePage()}
+                            }.bind(this)
+                        }>{this.props.title}</a></h1>
+                {this.props.subtitle}
+            </header>
+            )
+            }
+    }
+    
+    <Subject title="World wide Web" subtitle="Welcome"
+            onChangePage={function(){this.setState({mode:'welcome'})}.bind(this)}></Subject>
+    
+여기서 보면, App 컴포넌트에서 Subject 태그의 props에서 onChange를 추가하여, 이벤트가 발생하였을 때, 상황을 추가하였다. 
+
+그리고 Subject라는 사용자정의 컴포넌트로 가서, 이벤트가 발생할 때, 외부에서의 props를 받아, onChangePage함수를 실행시켰다.-> onChangePage();
+
+props로 받아오는 것은, Subject의 맥락을 보다 App의 맥락 안에서, 새롭게 만든 fucntion(_event){}으로 인해, Subject을 외부에서  handling 했다.
+
+
+### 컴포넌트 이름 지을때, 첫 글자는 항상 대문자 (주의)
+
+    class Subject extends Components{}
+    class App extends Components{}
+    ...
+
 # 04/26 Fri
 
