@@ -1066,4 +1066,115 @@ props로 받아오는 것은, Subject의 맥락을 보다 App의 맥락 안에�
     ...
 
 # 04/26 Fri
+오늘은 마지막 날이다.
+
+짧은 시간에 너무 많은 것을 배우면, 무기력을 느끼기 쉽기 때문에 추천하는 방식은 아니다. 
+이 수업이 끝나고, javascript를 다시 보지 않으면 다 까먹을 꺼 같은 느낌이다. 이 수업이 끝나면 프로젝트를 해봐야 할꺼같다.
+
+1. html 으로 웹 하나 만들기.
+
+## 
+
+    import React,{Component} from 'react';
+
+    class Subject extends Component{
+    render(){
+        return (
+        <header>
+            <h1><a href="" 
+                    onClick={
+                        function(_event){
+                        _event.preventDefault();
+                        this.props.onChangePage()
+                        }.bind(this)
+                    }>{this.props.title}</a></h1>
+            {this.props.subtitle}
+        </header>
+        )
+        }
+    }
+
+    class TOC extends Component{
+    render(){
+        var tags=[];
+        var con= this.props.data;
+        var i=0;
+        while(i<con.length){
+        tags.push(<li key={con[i].id}><a href="" 
+                                onClick={
+                                    function(id,_event){
+                                    _event.preventDefault();
+                                    this.props.onChangePage(id);
+                                    }.bind(this,con[i].id)
+                                } >{con[i].title}</a></li>)
+        i=i+1
+        }
+        return (
+        <nav>
+            <ol>
+            {tags}  
+            </ol>
+        </nav>
+        )
+    }
+    }
+
+
+    class Contents extends Component{
+    render(){
+        return (
+        <article>
+        <h2>{this.props.title}</h2>
+            {this.props.subtitle}
+        </article>
+        )
+    }
+    }
+
+
+    class App extends Component{
+
+    state={
+        contents:[{id:1, title:'HTML', desc:'HTML is...'},
+                {id:2, title:'CSS', desc:'CSS is...'},
+                {id:3, title:'Javascript', desc:'Javascript is...'}],
+        mode:'welcome',
+        selected_id:2
+        }
+    
+    render(){
+        var _atitle,_adesc=''
+        if (this.state.mode==='welcome'){
+            _atitle="Web"
+            _adesc='Welcome'
+        }else if(this.state.mode==='read'){
+            var j=0;
+            while(j<this.state.contents.length){
+            if(this.state.selected_id===this.state.contents[j].id){
+                _atitle=this.state.contents[j].title;
+                _adesc=this.state.contents[j].desc;
+                break;
+            }
+            j=j+1;
+            }
+        }
+        
+        return (
+        <div className="App">
+            <Subject title="World wide Web" subtitle="Welcome"
+                onChangePage={function(){this.setState({mode:'welcome'})}.bind(this)}></Subject>
+            
+            <TOC data={this.state.contents} 
+            onChangePage={function(id){
+                            this.setState({mode:'read',
+                                        selected_id:id});
+                            }.bind(this)}></TOC>
+            <Contents title={_atitle} subtitle={_adesc}></Contents>
+        </div>
+        );
+    }
+    }
+
+
+    export default App;
 

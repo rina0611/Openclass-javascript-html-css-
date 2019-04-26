@@ -1,79 +1,99 @@
 import React,{Component} from 'react';
+import logo from './logo.svg';
+import './App.css';
+import TOC from "./components/TOC";
+import Subject from "./components/Subject";
+import ContentCreate from "./components/ContentCreate";
+import ContentRead from "./components/ContentRead";
 
-class Subject extends Component{
-  render(){
-    return (
-      <header>
-          <h1><a href="" 
-                  onClick={
-                    function(_event){
-                      _event.preventDefault();
-                      {this.props.onChangePage()}
-                    }.bind(this)
-                  }>{this.props.title}</a></h1>
-          {this.props.subtitle}
-      </header>
-    )
-    }
-  }
 
-class TOC extends Component{
-  render(){
-    var tags=[];
-    var con= this.props.data;
-    var i=0;
-    while(i<con.length){
-      tags.push(<li key={con[i].id}><a href="" >{con[i].title}</a></li>)
-      i=i+1
-    }
-    return (
-      <nav>
-        <ol>
-          {tags}  
-        </ol>
-      </nav>
-    )
-  }
-}
-class Contents extends Component{
-  render(){
-    return (
-      <article>
-      <h2>{this.props.title}</h2>
-        {this.props.subtitle}
-      </article>
-    )
-  }
-}
+
 class App extends Component{
-
-  state={
-    contents:[{id:1, title:'HTML', desc:'HTML is...'},
-              {id:2, title:'CSS', desc:'CSS is...'}],
-    mode:'read' 
-    }
-  
+  max_id = 3;
+  state = {
+    contents:[
+      {id:1, title:'HTML', desc:'HTML is ...'},
+      {id:2, title:'CSS', desc:'CSS is ...'},
+      {id:3, title:'JavaScript', desc:'JavaScript is ...'}
+    ],
+    mode:'read',
+    selected_id:2
+  }
   render(){
-    var _atitle,_adesc=''
-    if (this.state.mode==='welcome'){
-        _atitle="Web"
-        _adesc='Welcome'
-    }else if(this.state.mode==='read'){
-        _atitle="HTML"
-        _adesc="HTML is"
+    console.log('App render');
+    var _aTitle, _aDesc = '';
+    var _content = null;
+    if(this.state.mode === 'welcome'){
+      _aTitle = 'Welcome';
+      _aDesc = 'Hello, React';
+      _content = <ContentRead title={_aTitle} desc={_aDesc}></ContentRead>
+    } else if(this.state.mode === 'read'){
+      var i = 0;
+      var con = this.state.contents;
+      while( i < con.length){
+        if(con[i].id === this.state.selected_id){
+          _aTitle = con[i].title;
+          _aDesc = con[i].desc;
+          break;
+        }
+        i = i + 1;
+      }
+      _content = <ContentRead title={_aTitle} desc={_aDesc}></ContentRead>
+    }else if (this.state.mode==='create'){
+      _content=<ContentCreate onSubmitCreate={
+        function(_title,_desc){
+          this.max_id=this.max_id+1;
+          // this.state.contents.push(
+          //   {
+          //     id:this.max_id,
+          //     title:_title,
+          //     desc:_desc
+          //   }
+          // )
+          var newContents = Array.from(this.state.contents);
+          newContents.push(
+            {
+                  id:this.max_id,
+                  title:_title,
+                  desc:_desc
+                }
+          );
+          this.setState({contents:newContents})
+        }.bind(this)
+      }></ContentCreate>
     }
-    
+
     return (
       <div className="App">
-          <Subject title="World wide Web" subtitle="Welcome"
-            onChangePage={function(){this.setState({mode:'welcome'})}.bind(this)}></Subject>
-          
-          <TOC data={this.state.contents}></TOC>
-          <Contents title={_atitle} subtitle={_adesc}></Contents>
+        <img src={logo} alt="Logo"></img>
+        <Subject title="WEB" sub="World!!" onChangePage={function(){
+          this.setState({mode:'welcome'});  
+        }.bind(this)}></Subject>
+        <TOC onChangePage={
+          function(id){
+            this.setState({
+              mode:'read',
+              selected_id:id
+            });
+            // todo : 선택한 글 본문 표현
+          }.bind(this)
+        } data={this.state.contents}></TOC>
+        <ul>
+          <li><a
+            onClick={
+              function(event){
+                event.preventDefault();
+                this.setState({mode:'create'});
+              }.bind(this)
+            }
+            href="/create">create</a></li>
+          <li><a href="/update">update</a></li>
+          <li><input type="button" value="delete"></input></li>
+          </ul>
+        {_content}
       </div>
-    );
+    );  
   }
 }
-
 
 export default App;
