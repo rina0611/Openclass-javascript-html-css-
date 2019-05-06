@@ -1073,7 +1073,7 @@ props로 받아오는 것은, Subject의 맥락을 보다 App의 맥락 안에�
 
 1. html 으로 웹 하나 만들기.
 
-## 
+## 완성본
 
     import React,{Component} from 'react';
 
